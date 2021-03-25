@@ -1,11 +1,16 @@
 package stepDefinitions;
 
 import static org.junit.Assert.assertEquals;
+
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 //import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
@@ -43,18 +48,17 @@ public class StepDefinitions {
 		
 		@When("Press buy")
 		public void press_buy() throws InterruptedException {
-			Thread.sleep(2000);
 			driver.findElement(By.id("product-addtocart-button")).click();
+			Thread.sleep(4000);
+			driver.findElement(By.className("showcart")).click();
 		}
 		
 		@Then("Result {int} shirts bought")
-		public void result_shirts_bought(Integer int1) throws InterruptedException {
-			WebElement quantity = driver.findElement(By.xpath("/html/body/div[4]/header/div[3]/div[4]/a/span/span[1]"));
-			assertEquals(String.valueOf(int1), quantity.getAttribute("value"));
-			Thread.sleep(2000);
+		public void result_shirts_bought(Integer int1)  throws InterruptedException {
+			WebElement amount= driver.findElement(By.className("item-qty"));
+			assertEquals("2", amount.getAttribute("value"));
+			Thread.sleep(4000);
 			driver.close();
 		}
-
-
 		}
 
